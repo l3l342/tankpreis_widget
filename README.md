@@ -1,7 +1,7 @@
 # tankpreis_widget
 tankpreis widget with scribtable app for ios
 
-### nice to know 
+## nice to know 
 - api from https://creativecommons.tankerkoenig.de/
 - creates a widget in the ios app scriptable
 

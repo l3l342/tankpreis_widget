@@ -1,3 +1,6 @@
+//written by Ben D
+//api credits: https://creativecommons.tankerkoenig.de/
+
 let widget = await buildWidget();
 Script.setWidget(widget);
 widget.presentSmall()

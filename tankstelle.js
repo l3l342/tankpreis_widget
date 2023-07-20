@@ -1,7 +1,7 @@
 //written by Ben D
 //api credits: https://creativecommons.tankerkoenig.de/
 
-buildWidget();
+let widget = await buildWidget();
 Script.setWidget(widget);
 widget.presentSmall()
 
@@ -92,7 +92,7 @@ async function api_tanker() {
     const rad = 5 //radius to search for tankstellen
     const typ = "e10" //change value für diesel -> "diesel", Super -> "e5", Super E10 -> "e10"
     const url = 'https://creativecommons.tankerkoenig.de/json/list.php?lat='+lat+'&lng='+lng+'&rad='+rad+'&sort=dist&type='+typ+'&apikey='+key;
-console.log(url)
+    
     const response = new Request(url);
     const data = await response.loadJSON();
 

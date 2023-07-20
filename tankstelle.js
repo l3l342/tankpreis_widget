@@ -1,7 +1,7 @@
 //written by Ben D
 //api credits: https://creativecommons.tankerkoenig.de/
 
-let widget = await buildWidget();
+buildWidget();
 Script.setWidget(widget);
 widget.presentSmall()
 
@@ -14,15 +14,14 @@ async function buildWidget() {
     price = list(json);
     lowest = lowestprice_index(price);
     index = price.indexOf(lowest);
-    
-    const bgColor = new LinearGradient();
-    bgColor.colors = [new Color("#29323c"), new Color("#1c1c1c")];
-    widget.backgroundGradient = bgColor;
+
+    const bgColor = new Color("282828");
+    widget.backgroundColor = bgColor;
     
     const stack = widget.addStack();
     stack.layoutVertically();
     stack.spacing = 8;
-    stack.size = new Size(120, 0);
+    stack.size = new Size(130, 0);
 
     const bestprice = stack.addText(String("💰 " + lowest.price));
     bestprice.font = Font.mediumRoundedSystemFont(18); 
@@ -40,7 +39,7 @@ async function buildWidget() {
     }
     
 
-    address = lowest.street +" "+lowest.houseNumber +", "+" "+lowest.place 
+    address = lowest.street +" "+ lowest.houseNumber +", "+" "+lowest.place 
     const adrs = stack.addText("🚗 " + address);
     adrs.font = Font.mediumRoundedSystemFont(11); 
     adrs.textColor = Color.white();
@@ -60,17 +59,22 @@ async function buildWidget() {
 function list(json) {
     var price = [];
     for (let elem in json){
-        price.push(json[elem]);
+        if (json[elem].price != null){
+            price.push(json[elem]);
+        }
     }
     return price;
 }
 
 function lowestprice_index(price) {
+    console.log(price)
     let smallest = price[0].price;
+    let lowest = undefined;
     for (i = 1; i < price.length; i++){
         if (smallest > price[i].price) {
             smallest = price[i].price;
             lowest = price[i];
+            console.log(lowest)
         } 
     }
     return lowest
@@ -85,10 +89,10 @@ async function api_tanker() {
     const lng = await location.longitude;
     const lat = await location.latitude;
 
-    const rad = 10 //radius to search for tankstellen
+    const rad = 5 //radius to search for tankstellen
     const typ = "e10" //change value für diesel -> "diesel", Super -> "e5", Super E10 -> "e10"
     const url = 'https://creativecommons.tankerkoenig.de/json/list.php?lat='+lat+'&lng='+lng+'&rad='+rad+'&sort=dist&type='+typ+'&apikey='+key;
-
+console.log(url)
     const response = new Request(url);
     const data = await response.loadJSON();
 

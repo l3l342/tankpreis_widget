@@ -23,6 +23,7 @@ async function buildWidget() {
     stack.spacing = 8;
     stack.size = new Size(130, 0);
 
+console.log(lowest)
     const bestprice = stack.addText(String("💰 " + lowest.price));
     bestprice.font = Font.mediumRoundedSystemFont(18); 
     bestprice.centerAlignText();
@@ -67,15 +68,13 @@ function list(json) {
 }
 
 function lowestprice_index(price) {
-    console.log(price)
     let smallest = price[0].price;
-    let lowest = undefined;
+    let lowest = price[0];
     for (i = 1; i < price.length; i++){
         if (smallest > price[i].price) {
             smallest = price[i].price;
             lowest = price[i];
-            console.log(lowest)
-        } 
+        }
     }
     return lowest
 }   
@@ -92,6 +91,7 @@ async function api_tanker() {
     const rad = 5 //radius to search for tankstellen
     const typ = "e10" //change value für diesel -> "diesel", Super -> "e5", Super E10 -> "e10"
     const url = 'https://creativecommons.tankerkoenig.de/json/list.php?lat='+lat+'&lng='+lng+'&rad='+rad+'&sort=dist&type='+typ+'&apikey='+key;
+    console.log(url)
     
     const response = new Request(url);
     const data = await response.loadJSON();
@@ -99,3 +99,4 @@ async function api_tanker() {
     json = data.stations;
     return json;
 }
+
